@@ -12,14 +12,14 @@ export class MonacoDiffEditorComponent implements OnInit {
     theme: 'vs-light', language: 'json'
   };
   model: NgxEditorModel = {
-    language: 'json', value: '{a: 3, "b": "abc"}',
+    language: 'json', value: '{"a": "3", "b": "abc"}',
   }
   originalModel: DiffEditorModel = {
-    code: '{a: 3, "b": "abc"}', language: 'json'
+    code: '{"a": "3", "b": "abc"}', language: 'json'
   };
 
   modifiedModel: DiffEditorModel = {
-    code: '{a: 3, "b": "abc"}', language: 'json'
+    code: '{a: "3", "b": "abc"}', language: 'json'
   };
   showMultiple: any;
   code: any;
@@ -37,20 +37,16 @@ export class MonacoDiffEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.model.value = '{a: 44443, "b": "abc"}';
+    this.model.value = '{"a": "1", "b": "abc"}';
     this.updateOptions();
   }
 
   onInit(editor:any) {
     this.editor = editor;
-    console.log(editor);
-    // this.model = {
-    //   value:  '{a: 44443, "b": "777777"}', language: 'json', uri: monaco.Uri.parse('a://b/foo.json')
-    // };
   }
 
-  onInitDiffEditor($event: any) {
-
+  onInitDiffEditor(editor: any) {
+    this.editor = editor._modifiedEditor;
   }
 
   updateOptions() {
@@ -68,6 +64,14 @@ export class MonacoDiffEditorComponent implements OnInit {
   updateDiffModel() {
     this.originalModel = Object.assign({}, this.originalModel, { code: 'abcd' });
     this.modifiedModel = Object.assign({}, this.originalModel, { code: 'ABCD ef' });
+  }
+
+  save() {
+    this.editor.getAction('editor.action.formatDocument').run()
+    const issues = (window as any).monaco.editor.getModelMarkers({ owner: 'json' })
+    for (const issue of issues) {
+      console.log(issue.message);
+    }
   }
 }
 

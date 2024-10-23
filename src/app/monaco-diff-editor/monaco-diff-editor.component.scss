@@ -1,6 +1,10 @@
 .my-code-editor {
-  .editor-container {
-    height: calc(100vh - 100px);
-    border: solid 3rem olivedrab;
+  ::ng-deep .editor-container {
+    height: calc(100% - 2em);
+    width: calc(100% - 3em)    ;
+    border: solid 2px olive;
   }
+  border: solid .1em orangered;
+  padding: .3em;
+  max-resolution: .3em;
 }

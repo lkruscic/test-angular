@@ -1,10 +1,13 @@
 <hr>
-<div style="height: 200px;">
-<!--  <ngx-monaco-editor [options]="options" [(ngModel)]="model.value"  (onInit)="onInit($event)"></ngx-monaco-editor>-->
-  <ngx-monaco-editor [options]="options" [model]="model"  (onInit)="onInit($event)"></ngx-monaco-editor>
-  <ngx-monaco-diff-editor class="my-code-editor" [options]="options" [originalModel]="originalModel" [modifiedModel]="modifiedModel"></ngx-monaco-diff-editor>
+<div  style="borer: solid green .2em; margin: .3em; ">
+  <ngx-monaco-editor class="my-code-editor"  [options]="options" [(ngModel)]="model.value" (onInit)="onInit($event)" ></ngx-monaco-editor>
+  </div>
+<div  style="borer: solid yellow .2em; margin: .3em;">
+  <ngx-monaco-diff-editor class="my-code-editor" [options]="options" [originalModel]="originalModel" [modifiedModel]="modifiedModel" (onInit)="onInitDiffEditor($event)"></ngx-monaco-diff-editor>
 </div>
-
+<button (click)="save()">
+  Save
+</button>
 <!--<div style="margin: 4px; border: solid 3px yellowgreen">-->
 <!--  <h1>Editor</h1>-->
 <!--  <button (click)="updateOptions()">Change Language</button>-->
