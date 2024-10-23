@@ -19,7 +19,7 @@ export class MonacoDiffEditorComponent implements OnInit {
   };
 
   modifiedModel: DiffEditorModel = {
-    code: '{a: "3", "b": "abc"}', language: 'json'
+    code: '{"a": "3", "b": "abc"}', language: 'json'
   };
   showMultiple: any;
   code: any;
@@ -38,33 +38,38 @@ export class MonacoDiffEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.model.value = '{"a": "1", "b": "abc"}';
-    this.updateOptions();
+    //this.updateOptions();
   }
 
   onInit(editor:any) {
     this.editor = editor;
   }
 
-  onInitDiffEditor(editor: any) {
+  async onInitDiffEditor(editor: any) {
     this.editor = editor._modifiedEditor;
+    //await this.editor.getAction('editor.action.formatDocument').run();
+    setTimeout( () => {
+      console.log('running format action');
+      this.editor.getAction('editor.action.formatDocument').run();
+    } , 1000);
   }
 
-  updateOptions() {
-    this.toggleLanguage = !this.toggleLanguage;
-    if (this.toggleLanguage) {
-      this.code = this.cssCode;
-      this.options = Object.assign({}, this.options, { language: 'java' });
-    } else {
-      this.code = this.jsCode;
-      this.options = Object.assign({}, this.options, { language: 'javascript' });
-    }
+  // updateOptions() {
+  //   this.toggleLanguage = !this.toggleLanguage;
+  //   if (this.toggleLanguage) {
+  //     this.code = this.cssCode;
+  //     this.options = Object.assign({}, this.options, { language: 'java' });
+  //   } else {
+  //     this.code = this.jsCode;
+  //     this.options = Object.assign({}, this.options, { language: 'javascript' });
+  //   }
+  //
+  // }
 
-  }
-
-  updateDiffModel() {
-    this.originalModel = Object.assign({}, this.originalModel, { code: 'abcd' });
-    this.modifiedModel = Object.assign({}, this.originalModel, { code: 'ABCD ef' });
-  }
+  // updateDiffModel() {
+  //   this.originalModel = Object.assign({}, this.originalModel, { code: 'abcd' });
+  //   this.modifiedModel = Object.assign({}, this.originalModel, { code: 'ABCD ef' });
+  // }
 
   save() {
     this.editor.getAction('editor.action.formatDocument').run()
