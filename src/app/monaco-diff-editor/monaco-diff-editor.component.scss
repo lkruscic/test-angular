@@ -1,9 +1,11 @@
-.my-code-editor {
-  ::ng-deep .editor-container {
-    height: calc(100% - 2em);
-    width: calc(100% - 3em)    ;
-    border: solid 2px olive;
+.editor-wrapper {
+  border: solid .1em yellow;
+
+  ::ng-deep .my-code-editor {
+    padding: .3em;
+
+    ::ng-deep .editor-container {
+      margin: .2em;
+    }
   }
-  border: solid .1em orangered;
-  padding: .3em;
 }
