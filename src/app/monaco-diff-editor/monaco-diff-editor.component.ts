@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DiffEditorModel, NgxEditorModel} from "ngx-monaco-editor-v2";
+import {finalize} from "rxjs";
 declare var monaco: any;
 @Component({
   selector: 'app-monaco-diff-editor',
@@ -15,12 +16,13 @@ export class MonacoDiffEditorComponent implements OnInit {
     language: 'json', value: '{"a": "3", "b": "abc"}',
   }
   originalModel: DiffEditorModel = {
-    code: '{"a": "3", "b": "abc"}', language: 'json'
+    code: '{"a": "44", "b": "55"}', language: 'json'
   };
 
   modifiedModel: DiffEditorModel = {
     code: '{"a": "3", "b": "abc"}', language: 'json'
   };
+  @ViewChild('diffEditor') diffEditor: any;
   showMultiple: any;
   code: any;
   codeInput?: string | null  = 'Sample Code';
@@ -31,6 +33,8 @@ export class MonacoDiffEditorComponent implements OnInit {
   jsCode = `function hello() {
 	 alert('Hello world!');
 }`;
+
+  isRefreshing: boolean = false;
 
   constructor() {
 
@@ -71,12 +75,25 @@ export class MonacoDiffEditorComponent implements OnInit {
   //   this.modifiedModel = Object.assign({}, this.originalModel, { code: 'ABCD ef' });
   // }
 
+
   save() {
     this.editor.getAction('editor.action.formatDocument').run()
     const issues = (window as any).monaco.editor.getModelMarkers({ owner: 'json' })
     for (const issue of issues) {
       console.log(issue.message);
     }
+  }
+
+  refreshEntry() {
+    this.isRefreshing = true;
+    console.log('original value: ', this.diffEditor._originalModel.code);
+    try {
+      this.editor.setValue(this.diffEditor._originalModel.code);
+    } finally {
+      this.isRefreshing = false
+    };
+
+
   }
 }
 

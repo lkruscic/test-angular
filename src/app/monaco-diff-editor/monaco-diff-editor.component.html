@@ -4,11 +4,17 @@
   </ngx-monaco-editor>
 </div>
 <div class="editor-wrapper">
-  <ngx-monaco-diff-editor class="my-code-editor" [options]="options" [originalModel]="originalModel"
+  <ngx-monaco-diff-editor class="my-code-editor" #diffEditor id="diffEditor" [options]="options" [originalModel]="originalModel"
     [modifiedModel]="modifiedModel" (onInit)="onInitDiffEditor($event)"></ngx-monaco-diff-editor>
 </div>
-<button (click)="save()">
-  Save
+<button mat-button (click)="save()">
+  <mat-icon>save</mat-icon>
+</button>
+<button mat-button  (click)="refreshEntry()">
+  <mat-icon color="accent">arrow_forward</mat-icon>
+</button>
+<button mat-button  [disabled]="isRefreshing" (click)="refreshEntry()">
+  <mat-icon color="accent">refresh</mat-icon>
 </button>
 <!--<div style="margin: 4px; border: solid 3px yellowgreen">-->
 <!--  <h1>Editor</h1>-->

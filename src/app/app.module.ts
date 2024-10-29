@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { MonacoDiffEditorComponent } from './monaco-diff-editor/monaco-diff-editor.component';
-import {MonacoEditorModule, NgxMonacoEditorConfig} from "ngx-monaco-editor-v2";
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {MonacoDiffEditorComponent} from './monaco-diff-editor/monaco-diff-editor.component';
+import {MonacoEditorModule} from "ngx-monaco-editor-v2";
 import {FormsModule} from "@angular/forms";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 // declare var monaco: any;
 //
@@ -61,9 +62,12 @@ import {FormsModule} from "@angular/forms";
     BrowserModule,
     AppRoutingModule,
     MonacoEditorModule.forRoot(), //.forRoot(monacoConfig),
-    FormsModule
+    FormsModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
